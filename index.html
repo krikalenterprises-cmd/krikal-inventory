@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="theme-color" content="#080b12">
+
+    <title>KRIKAL Enterprises | Inventory</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="bg-grid"></div>
+<div class="bg-glow glow-one"></div>
+<div class="bg-glow glow-two"></div>
+
+<main class="container">
+
+    <!-- HEADER -->
+    <header class="header">
+
+        <div class="brand">
+
+            <div class="logo-box">
+                <img
+                    src="logo.png"
+                    alt="Krikal Enterprises"
+                    class="logo"
+                >
+            </div>
+
+            <div class="brand-name">
+                <h1>KRIKAL</h1>
+                <span>ENTERPRISES</span>
+            </div>
+
+        </div>
+
+
+        <div class="live-status">
+            <span class="live-dot"></span>
+
+            <div>
+                <strong>LIVE STOCK</strong>
+                <small id="lastUpdated">Connecting...</small>
+            </div>
+        </div>
+
+    </header>
+
+
+    <!-- HERO -->
+    <section class="hero">
+
+        <span class="hero-tag">
+            INVENTORY MANAGEMENT
+        </span>
+
+        <h2>
+            Smart Stock.
+            <span>Simple Search.</span>
+        </h2>
+
+        <p>
+            Quickly check available mobile covers, guards
+            and other inventory items.
+        </p>
+
+    </section>
+
+
+    <!-- SEARCH -->
+    <section class="search-card">
+
+        <div class="search-field">
+
+            <label>Search Inventory</label>
+
+            <div class="input-box">
+
+                <span>⌕</span>
+
+                <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="Search item, model or category..."
+                    autocomplete="off"
+                >
+
+            </div>
+
+        </div>
+
+
+        <div class="category-field">
+
+            <label>Category</label>
+
+            <select id="categoryFilter">
+                <option value="All">
+                    All Items
+                </option>
+            </select>
+
+        </div>
+
+    </section>
+
+
+    <!-- STATS -->
+    <section class="stats">
+
+        <div class="stat">
+            <div class="stat-icon">▦</div>
+
+            <div>
+                <small>Total Items</small>
+                <strong id="totalItems">0</strong>
+            </div>
+        </div>
+
+
+        <div class="stat">
+            <div class="stat-icon green">✓</div>
+
+            <div>
+                <small>Available</small>
+                <strong id="availableItems">0</strong>
+            </div>
+        </div>
+
+
+        <div class="stat">
+            <div class="stat-icon yellow">!</div>
+
+            <div>
+                <small>Low Stock</small>
+                <strong id="lowStockItems">0</strong>
+            </div>
+        </div>
+
+
+        <div class="stat">
+            <div class="stat-icon red">×</div>
+
+            <div>
+                <small>Out of Stock</small>
+                <strong id="outStockItems">0</strong>
+            </div>
+        </div>
+
+    </section>
+
+
+    <!-- INVENTORY -->
+    <section class="inventory-card">
+
+        <div class="inventory-header">
+
+            <div>
+                <small>PRODUCT LIST</small>
+                <h3>Inventory</h3>
+            </div>
+
+            <div class="inventory-meta">
+
+                <span class="refresh-status">
+                    <span class="refresh-dot"></span>
+                    Auto refresh
+                </span>
+
+                <span
+                    id="itemCount"
+                    class="item-count"
+                >
+                    0 Items
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- LOADING -->
+        <div
+            id="loadingMessage"
+            class="loading"
+        >
+            <div class="spinner"></div>
+            <span>Loading inventory...</span>
+        </div>
+
+
+        <!-- ERROR -->
+        <div
+            id="errorMessage"
+            class="message error"
+            style="display:none;"
+        >
+            <strong>Unable to load inventory</strong>
+            <span>Please try again.</span>
+        </div>
+
+
+        <!-- TABLE -->
+        <div class="table-container">
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>ITEM</th>
+                        <th>MODEL</th>
+                        <th>CATEGORY</th>
+                        <th>QTY</th>
+                        <th>STATUS</th>
+                    </tr>
+                </thead>
+
+                <tbody id="inventoryTable"></tbody>
+
+            </table>
+
+        </div>
+
+
+        <!-- EMPTY -->
+        <div
+            id="emptyMessage"
+            class="message"
+            style="display:none;"
+        >
+            <div class="empty-icon">📦</div>
+            <strong>No items found</strong>
+            <span>Try another search or category.</span>
+        </div>
+
+    </section>
+
+
+    <!-- FOOTER -->
+    <footer>
+
+        <div class="footer-brand">
+            KRIKAL <span>ENTERPRISES</span>
+        </div>
+
+        <span class="footer-separator">•</span>
+
+        <span>
+            Inventory Management System
+        </span>
+
+        <span class="footer-separator">•</span>
+
+        <span>
+            © 2026
+        </span>
+
+    </footer>
+
+</main>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>
+```
