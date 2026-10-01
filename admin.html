@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Inventory Admin Dashboard</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="container admin-shell">
+
+        <div class="admin-topbar">
+            <div class="admin-brand">
+                <img src="logo.png" alt="KRIKAL">
+                <div><strong>KRIKAL</strong><span>ADMIN TOOLS</span></div>
+            </div>
+            <div class="admin-top-actions">
+                <a href="index.html">← Dashboard</a>
+                <button type="button" id="adminLogout">Logout</button>
+            </div>
+        </div>
+
+        <div class="admin-heading">
+            <div>
+                <h1>Inventory Admin Dashboard</h1>
+                <p>Add, edit and delete inventory items securely</p>
+            </div>
+            <div class="admin-live"><span></span> LIVE DATA</div>
+        </div>
+
+        <div class="admin-form admin-form-pro">
+
+            <input
+                type="text"
+                id="itemName"
+                placeholder="Item Name"
+            >
+
+            <input
+                type="text"
+                id="model"
+                placeholder="Mobile Model"
+            >
+
+            <input
+                type="text"
+                id="category"
+                placeholder="Category"
+            >
+
+            <input
+                type="number"
+                id="quantity"
+                placeholder="Quantity"
+            >
+
+            <button class="admin-primary" id="saveButton" onclick="saveItem()">
+                Add Item
+            </button>
+
+            <button
+                class="admin-secondary"
+                id="cancelButton"
+                onclick="cancelEdit()"
+                style="display: none;"
+            >
+                Cancel Edit
+            </button>
+
+        </div>
+
+        <h2>Manage Inventory</h2>
+
+        <div class="search-box admin-search">
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="Search item..."
+            >
+        </div>
+
+        <table>
+
+            <thead>
+                <tr>
+                    <th>Item Name</th>
+                    <th>Model</th>
+                    <th>Category</th>
+                    <th>Quantity</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+
+            <tbody id="adminTable">
+                <tr>
+                    <td colspan="5">Loading inventory...</td>
+                </tr>
+            </tbody>
+
+        </table>
+
+    </div>
+
+    <script src="admin.js"></script>
+
+</body>
+</html>

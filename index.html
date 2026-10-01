@@ -1,0 +1,1338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#030712">
+
+    <title>KRIKAL Enterprises | Inventory</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- =====================================================
+     BACKGROUND
+     ===================================================== -->
+
+<div class="ambient ambient-one"></div>
+<div class="ambient ambient-two"></div>
+<div class="grid-bg"></div>
+
+
+<!-- =====================================================
+     LOGIN
+     ===================================================== -->
+
+<section id="loginScreen" class="login-screen">
+
+    <div class="login-card">
+
+        <div class="login-brand">
+            KRiKAL
+        </div>
+
+        <div class="login-small">
+            INVENTORY MANAGER
+        </div>
+
+        <h1>Welcome Back</h1>
+
+        <p class="login-description">
+            Sign in to manage your inventory
+        </p>
+
+        <form id="loginForm" autocomplete="off">
+
+            <div class="input-group">
+
+                <label for="loginUsername">
+                    Username
+                </label>
+
+                <input
+                    id="loginUsername"
+                    type="text"
+                    placeholder="Enter username"
+                    autocomplete="username"
+                    required
+                >
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label for="loginPassword">
+                    Password
+                </label>
+
+                <div class="password-wrapper">
+
+                    <input
+                        id="loginPassword"
+                        type="password"
+                        placeholder="Enter password"
+                        autocomplete="current-password"
+                        required
+                    >
+
+                    <button
+                        id="togglePassword"
+                        type="button"
+                        class="password-toggle"
+                    >
+                        👁
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div
+                id="loginError"
+                class="login-error"
+            ></div>
+
+
+            <button
+                type="submit"
+                class="login-button"
+            >
+                Login
+            </button>
+
+        </form>
+
+        <div class="login-footer">
+            KRIKAL Enterprises
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     APPLICATION
+     ===================================================== -->
+
+<div id="app" class="app-shell hidden">
+
+    <!-- SIDEBAR -->
+
+    <aside
+        class="sidebar"
+        id="sidebar"
+    >
+
+        <div class="sidebar-brand">
+
+            <div class="brand-logo">
+                <img
+                    src="logo.png"
+                    alt="KRIKAL"
+                >
+            </div>
+
+            <div class="brand-text">
+                <h1>KRIKAL</h1>
+                <span>ENTERPRISES</span>
+            </div>
+
+        </div>
+
+
+        <div class="sidebar-label">
+            MAIN MENU
+        </div>
+
+
+        <nav class="nav-menu">
+
+            <button
+                class="nav-item active"
+                data-page="home"
+                type="button"
+            >
+                <span class="nav-icon">⌂</span>
+                <span>Home</span>
+            </button>
+
+
+            <button
+                class="nav-item"
+                data-page="inventory"
+                type="button"
+            >
+                <span class="nav-icon">▦</span>
+                <span>Inventory</span>
+            </button>
+
+        </nav>
+
+
+        <div class="sidebar-label">
+            SYSTEM
+        </div>
+
+
+        <nav class="nav-menu">
+
+            <button
+                class="nav-item"
+                data-page="settings"
+                type="button"
+            >
+                <span class="nav-icon">⚙</span>
+                <span>Settings</span>
+            </button>
+
+            <a
+                class="nav-item nav-link-item"
+                href="admin.html"
+                title="Open inventory admin tools"
+            >
+                <span class="nav-icon">✚</span>
+                <span>Admin Tools</span>
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <div class="sidebar-live">
+
+                <span class="live-dot"></span>
+
+                <div>
+                    <strong>LIVE STOCK</strong>
+
+                    <small id="lastUpdated">
+                        Connecting...
+                    </small>
+                </div>
+
+            </div>
+
+
+            <button
+                id="logoutBtn"
+                class="logout-btn"
+                type="button"
+            >
+                ⇥ Logout
+            </button>
+
+
+            <div class="sidebar-copy">
+                Inventory Management System
+            </div>
+
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN -->
+
+    <main class="main-content">
+
+        <header class="topbar">
+
+            <button
+                id="mobileMenu"
+                class="mobile-menu"
+                type="button"
+            >
+                ☰
+            </button>
+
+
+            <div class="topbar-title">
+                <span id="currentPageLabel">
+                    Dashboard
+                </span>
+            </div>
+
+
+            <div class="topbar-right">
+
+                <div class="live-status">
+                    <span class="live-dot"></span>
+                    <span>LIVE</span>
+                </div>
+
+
+                <button
+                    id="refreshBtn"
+                    class="refresh-btn"
+                    type="button"
+                >
+                    ↻
+                    <span>Refresh</span>
+                </button>
+
+            </div>
+
+        </header>
+
+
+        <!-- =================================================
+             HOME
+             ================================================= -->
+
+        <section
+            id="homePage"
+            class="page active"
+        >
+
+            <div class="page-heading">
+
+                <div>
+                    <h2>Dashboard</h2>
+
+                    <p>
+                        Welcome to KRIKAL Inventory Management
+                    </p>
+                </div>
+
+                <div
+                    id="dashboardDate"
+                    class="dashboard-date"
+                >
+                    —
+                </div>
+
+            </div>
+
+
+            <div class="dashboard-stats">
+
+                <div class="dashboard-card total-card">
+                    <div class="dashboard-icon">📦</div>
+
+                    <div class="dashboard-info">
+                        <h3 id="totalItems">0</h3>
+                        <span>Total Items</span>
+                    </div>
+                </div>
+
+
+                <div class="dashboard-card available-card">
+                    <div class="dashboard-icon">✓</div>
+
+                    <div class="dashboard-info">
+                        <h3 id="availableItems">0</h3>
+                        <span>Available</span>
+                    </div>
+                </div>
+
+
+                <div class="dashboard-card low-card">
+                    <div class="dashboard-icon">!</div>
+
+                    <div class="dashboard-info">
+                        <h3 id="lowStockItems">0</h3>
+                        <span>Low Stock</span>
+                    </div>
+                </div>
+
+
+                <div class="dashboard-card out-card">
+                    <div class="dashboard-icon">×</div>
+
+                    <div class="dashboard-info">
+                        <h3 id="outStockItems">0</h3>
+                        <span>Out of Stock</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="dashboard-insights">
+                <div class="insight-card">
+                    <div class="insight-header">
+                        <div>
+                            <span class="insight-kicker">STOCK HEALTH</span>
+                            <h3>Quick Overview</h3>
+                        </div>
+                        <span class="insight-icon">◈</span>
+                    </div>
+                    <div id="stockHealthBar" class="health-bar"><span></span></div>
+                    <div class="health-meta">
+                        <span id="healthText">Waiting for inventory…</span>
+                        <strong id="healthPercent">0%</strong>
+                    </div>
+                </div>
+
+                <div class="insight-card category-insight-card">
+                    <div class="insight-header">
+                        <div>
+                            <span class="insight-kicker">CATEGORIES</span>
+                            <h3>Stock by Category</h3>
+                        </div>
+                        <span class="insight-icon">▦</span>
+                    </div>
+                    <div id="categorySummary" class="category-summary">
+                        <span class="mini-empty">Loading categories…</span>
+                    </div>
+                </div>
+
+                <div class="insight-card alert-insight-card">
+                    <div class="insight-header">
+                        <div>
+                            <span class="insight-kicker">ATTENTION</span>
+                            <h3>Stock Alerts</h3>
+                        </div>
+                        <span class="insight-icon">!</span>
+                    </div>
+                    <div id="stockAlertList" class="stock-alert-list">
+                        <span class="mini-empty">No alerts yet</span>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="home-welcome">
+
+                <div class="welcome-icon">
+                    📊
+                </div>
+
+                <div class="welcome-content">
+
+                    <h3>
+                        Inventory Overview
+                    </h3>
+
+                    <p>
+                        Your complete inventory is available
+                        in the Inventory section.
+                    </p>
+
+                </div>
+
+
+                <button
+                    class="open-inventory"
+                    data-page="inventory"
+                    type="button"
+                >
+                    Open Inventory →
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             INVENTORY
+             ================================================= -->
+
+        <section
+            id="inventoryPage"
+            class="page"
+        >
+
+            <div class="page-heading">
+
+                <div>
+                    <h2>Inventory</h2>
+
+                    <p>
+                        Manage and monitor your complete stock
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div class="controls inventory-controls-pro">
+
+                <div class="search-box pro-search">
+                    <span class="control-icon">⌕</span>
+                    <input
+                        id="searchInput"
+                        type="text"
+                        placeholder="Search product or category..."
+                        autocomplete="off"
+                    >
+                </div>
+
+                <select id="categoryFilter" aria-label="Filter by category">
+                    <option value="">All Categories</option>
+                </select>
+
+                <select id="statusFilter" aria-label="Filter by stock status">
+                    <option value="">All Status</option>
+                    <option value="available">Available</option>
+                    <option value="low-stock">Low Stock</option>
+                    <option value="out-stock">Out of Stock</option>
+                </select>
+
+                <select id="sortFilter" aria-label="Sort inventory">
+                    <option value="default">Sort: Default</option>
+                    <option value="name-asc">Name A–Z</option>
+                    <option value="name-desc">Name Z–A</option>
+                    <option value="stock-high">Stock High–Low</option>
+                    <option value="stock-low">Stock Low–High</option>
+                </select>
+
+                <button id="clearFiltersBtn" class="control-button" type="button">Clear</button>
+                <button id="exportCsvBtn" class="control-button primary-control" type="button">↓ Export CSV</button>
+
+            </div>
+
+            <div class="filter-summary" id="filterSummary">
+                <span>Showing all inventory</span>
+            </div>
+
+
+            <div class="inventory-section">
+
+                <div class="inventory-header">
+
+                    <div>
+                        <h2>
+                            Stock Inventory
+                        </h2>
+
+                        <span id="inventoryCount">
+                            0 items
+                        </span>
+                    </div>
+
+                </div>
+
+
+                <div class="table-container">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+                                <th>Product</th>
+                                <th>Category</th>
+                                <th>Stock</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody id="inventoryBody">
+
+                            <tr>
+                                <td
+                                    colspan="5"
+                                    class="loading"
+                                >
+                                    Loading inventory...
+                                </td>
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             SETTINGS
+             ================================================= -->
+
+        <section
+            id="settingsPage"
+            class="page"
+        >
+
+            <div class="page-heading">
+
+                <div>
+                    <h2>Settings</h2>
+
+                    <p>
+                        Manage your KRIKAL dashboard preferences
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div class="settings-grid">
+
+
+                <!-- APPEARANCE -->
+
+                <div class="settings-card">
+
+                    <div class="settings-card-header">
+
+                        <div class="settings-card-icon">
+                            🎨
+                        </div>
+
+                        <div>
+                            <h3>Appearance</h3>
+                            <p>Dashboard display settings</p>
+                        </div>
+
+                    </div>
+
+
+                    <div class="setting-row">
+
+                        <div>
+                            <strong>Dark Glass Theme</strong>
+                            <span>
+                                Premium dark dashboard appearance
+                            </span>
+                        </div>
+
+                        <label class="toggle">
+                            <input
+                                type="checkbox"
+                                id="themeToggle"
+                                checked
+                            >
+                            <span class="toggle-slider"></span>
+                        </label>
+
+                    </div>
+
+
+                    <div class="setting-row">
+
+                        <div>
+                            <strong>Background Glow</strong>
+                            <span>
+                                Blue and purple background glow
+                            </span>
+                        </div>
+
+                        <label class="toggle">
+                            <input
+                                type="checkbox"
+                                id="glowToggle"
+                                checked
+                            >
+                            <span class="toggle-slider"></span>
+                        </label>
+
+                    </div>
+
+
+                    <div class="setting-row">
+
+                        <div>
+                            <strong>Animations</strong>
+                            <span>
+                                Enable dashboard animations
+                            </span>
+                        </div>
+
+                        <label class="toggle">
+                            <input
+                                type="checkbox"
+                                id="animationToggle"
+                                checked
+                            >
+                            <span class="toggle-slider"></span>
+                        </label>
+
+                    </div>
+
+                </div>
+
+
+                <!-- INVENTORY -->
+
+                <div class="settings-card">
+
+                    <div class="settings-card-header">
+
+                        <div class="settings-card-icon">
+                            📦
+                        </div>
+
+                        <div>
+                            <h3>Inventory Preferences</h3>
+                            <p>Control inventory display</p>
+                        </div>
+
+                    </div>
+
+
+                    <div class="setting-row">
+
+                        <div>
+                            <strong>Low Stock Limit</strong>
+                            <span>
+                                Stock at or below this value is low
+                            </span>
+                        </div>
+
+                        <input
+                            class="number-setting"
+                            id="lowStockLimit"
+                            type="number"
+                            min="0"
+                            value="5"
+                        >
+
+                    </div>
+
+
+                    <div class="setting-row">
+
+                        <div>
+                            <strong>Show Out of Stock</strong>
+                            <span>
+                                Display zero-stock products
+                            </span>
+                        </div>
+
+                        <label class="toggle">
+                            <input
+                                type="checkbox"
+                                id="showOutStock"
+                                checked
+                            >
+                            <span class="toggle-slider"></span>
+                        </label>
+
+                    </div>
+
+
+                    <div class="setting-row">
+
+                        <div>
+                            <strong>Status Badges</strong>
+                            <span>
+                                Show stock status
+                            </span>
+                        </div>
+
+                        <label class="toggle">
+                            <input
+                                type="checkbox"
+                                id="showStatus"
+                                checked
+                            >
+                            <span class="toggle-slider"></span>
+                        </label>
+
+                    </div>
+
+                </div>
+
+
+                <!-- REFRESH -->
+
+                <div class="settings-card">
+
+                    <div class="settings-card-header">
+
+                        <div class="settings-card-icon">
+                            🔄
+                        </div>
+
+                        <div>
+                            <h3>Data & Refresh</h3>
+                            <p>Inventory synchronization</p>
+                        </div>
+
+                    </div>
+
+
+                    <div class="setting-row">
+
+                        <div>
+                            <strong>Auto Refresh</strong>
+                            <span>
+                                Automatically update stock
+                            </span>
+                        </div>
+
+                        <label class="toggle">
+                            <input
+                                type="checkbox"
+                                id="autoRefreshToggle"
+                            >
+                            <span class="toggle-slider"></span>
+                        </label>
+
+                    </div>
+
+
+                    <div class="setting-row">
+
+                        <div>
+                            <strong>Refresh Interval</strong>
+                            <span>
+                                Time between updates
+                            </span>
+                        </div>
+
+                        <select
+                            class="settings-select"
+                            id="refreshInterval"
+                        >
+                            <option value="30000">
+                                30 Seconds
+                            </option>
+
+                            <option
+                                value="60000"
+                                selected
+                            >
+                                1 Minute
+                            </option>
+
+                            <option value="300000">
+                                5 Minutes
+                            </option>
+
+                            <option value="600000">
+                                10 Minutes
+                            </option>
+                        </select>
+
+                    </div>
+
+
+                    <button
+                        id="manualRefresh"
+                        class="settings-wide-btn"
+                        type="button"
+                    >
+                        ↻ Refresh Inventory Now
+                    </button>
+
+                </div>
+
+
+                <!-- NOTIFICATIONS -->
+
+                <div class="settings-card">
+
+                    <div class="settings-card-header">
+
+                        <div class="settings-card-icon">
+                            🔔
+                        </div>
+
+                        <div>
+                            <h3>Notifications</h3>
+                            <p>Stock alert preferences</p>
+                        </div>
+
+                    </div>
+
+
+                    <div class="setting-row">
+
+                        <div>
+                            <strong>Low Stock Alerts</strong>
+                            <span>
+                                Alert when stock is low
+                            </span>
+                        </div>
+
+                        <label class="toggle">
+                            <input
+                                type="checkbox"
+                                id="lowStockToggle"
+                                checked
+                            >
+                            <span class="toggle-slider"></span>
+                        </label>
+
+                    </div>
+
+
+                    <div class="setting-row">
+
+                        <div>
+                            <strong>Out of Stock Alerts</strong>
+                            <span>
+                                Alert when stock reaches zero
+                            </span>
+                        </div>
+
+                        <label class="toggle">
+                            <input
+                                type="checkbox"
+                                id="outStockToggle"
+                                checked
+                            >
+                            <span class="toggle-slider"></span>
+                        </label>
+
+                    </div>
+
+
+                    <div class="setting-row">
+
+                        <div>
+                            <strong>Browser Notifications</strong>
+                            <span>
+                                Allow browser alerts
+                            </span>
+                        </div>
+
+                        <label class="toggle">
+                            <input
+                                type="checkbox"
+                                id="browserNotificationToggle"
+                            >
+                            <span class="toggle-slider"></span>
+                        </label>
+
+                    </div>
+
+                </div>
+
+
+                <!-- DISPLAY -->
+
+                <div class="settings-card">
+
+                    <div class="settings-card-header">
+
+                        <div class="settings-card-icon">
+                            👁
+                        </div>
+
+                        <div>
+                            <h3>Display</h3>
+                            <p>Inventory table preferences</p>
+                        </div>
+
+                    </div>
+
+
+                    <div class="setting-row">
+
+                        <div>
+                            <strong>Show Category</strong>
+                            <span>
+                                Display category column
+                            </span>
+                        </div>
+
+                        <label class="toggle">
+                            <input
+                                type="checkbox"
+                                id="showCategory"
+                                checked
+                            >
+                            <span class="toggle-slider"></span>
+                        </label>
+
+                    </div>
+
+
+                    <div class="setting-row">
+
+                        <div>
+                            <strong>Show Stock Quantity</strong>
+                            <span>
+                                Display stock quantity
+                            </span>
+                        </div>
+
+                        <label class="toggle">
+                            <input
+                                type="checkbox"
+                                id="showStock"
+                                checked
+                            >
+                            <span class="toggle-slider"></span>
+                        </label>
+
+                    </div>
+
+
+                    <div class="setting-row">
+
+                        <div>
+                            <strong>Category Icons</strong>
+                            <span>
+                                Show category icons
+                            </span>
+                        </div>
+
+                        <label class="toggle">
+                            <input
+                                type="checkbox"
+                                id="showCategoryIcons"
+                                checked
+                            >
+                            <span class="toggle-slider"></span>
+                        </label>
+
+                    </div>
+
+
+                    <div class="setting-row">
+
+                        <div>
+                            <strong>Date Format</strong>
+                            <span>
+                                Dashboard date format
+                            </span>
+                        </div>
+
+                        <select
+                            class="settings-select"
+                            id="dateFormat"
+                        >
+                            <option value="long">
+                                30 August 2026
+                            </option>
+
+                            <option value="short">
+                                30/08/2026
+                            </option>
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <!-- EXPERIENCE -->
+
+                <div class="settings-card">
+
+                    <div class="settings-card-header">
+
+                        <div class="settings-card-icon">
+                            🖥️
+                        </div>
+
+                        <div>
+                            <h3>Experience</h3>
+                            <p>Customize dashboard behavior</p>
+                        </div>
+
+                    </div>
+
+
+                    <div class="setting-row">
+
+                        <div>
+                            <strong>Compact Table</strong>
+                            <span>
+                                Show more products
+                            </span>
+                        </div>
+
+                        <label class="toggle">
+                            <input
+                                type="checkbox"
+                                id="compactTable"
+                            >
+                            <span class="toggle-slider"></span>
+                        </label>
+
+                    </div>
+
+
+                    <div class="setting-row">
+
+                        <div>
+                            <strong>Remember Last Page</strong>
+                            <span>
+                                Open last visited section
+                            </span>
+                        </div>
+
+                        <label class="toggle">
+                            <input
+                                type="checkbox"
+                                id="rememberLastPage"
+                                checked
+                            >
+                            <span class="toggle-slider"></span>
+                        </label>
+
+                    </div>
+
+
+                    <div class="setting-row">
+
+                        <div>
+                            <strong>Default Page</strong>
+                            <span>
+                                Startup page
+                            </span>
+                        </div>
+
+                        <select
+                            class="settings-select"
+                            id="defaultPage"
+                        >
+                            <option value="home">
+                                Dashboard
+                            </option>
+
+                            <option value="inventory">
+                                Inventory
+                            </option>
+
+                            <option value="settings">
+                                Settings
+                            </option>
+                        </select>
+
+                    </div>
+
+
+                    <div class="setting-row">
+
+                        <div>
+                            <strong>Confirm Refresh</strong>
+                            <span>
+                                Ask before refresh
+                            </span>
+                        </div>
+
+                        <label class="toggle">
+                            <input
+                                type="checkbox"
+                                id="confirmRefresh"
+                            >
+                            <span class="toggle-slider"></span>
+                        </label>
+
+                    </div>
+
+                </div>
+
+
+                <!-- QUICK ACTIONS -->
+
+                <div class="settings-card">
+
+                    <div class="settings-card-header">
+
+                        <div class="settings-card-icon">
+                            ⚡
+                        </div>
+
+                        <div>
+                            <h3>Quick Actions</h3>
+                            <p>Common system actions</p>
+                        </div>
+
+                    </div>
+
+
+                    <div class="quick-setting-actions">
+
+                        <button
+                            class="quick-setting-btn"
+                            data-page="home"
+                            type="button"
+                        >
+                            🏠
+                            <span>Home</span>
+                        </button>
+
+
+                        <button
+                            class="quick-setting-btn"
+                            data-page="inventory"
+                            type="button"
+                        >
+                            📦
+                            <span>Inventory</span>
+                        </button>
+
+
+                        <button
+                            class="quick-setting-btn"
+                            id="quickRefresh"
+                            type="button"
+                        >
+                            🔄
+                            <span>Refresh</span>
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- SECURITY -->
+
+                <div class="settings-card">
+
+                    <div class="settings-card-header">
+
+                        <div class="settings-card-icon">
+                            🔐
+                        </div>
+
+                        <div>
+                            <h3>Security</h3>
+                            <p>Dashboard access controls</p>
+                        </div>
+
+                    </div>
+
+
+                    <div class="setting-row">
+
+                        <div>
+                            <strong>Dashboard Lock</strong>
+                            <span>
+                                Lock visual dashboard
+                            </span>
+                        </div>
+
+                        <label class="toggle">
+                            <input
+                                type="checkbox"
+                                id="dashboardLock"
+                            >
+                            <span class="toggle-slider"></span>
+                        </label>
+
+                    </div>
+
+
+                    <div class="setting-row">
+
+                        <div>
+                            <strong>Session Status</strong>
+                            <span>
+                                Current dashboard session
+                            </span>
+                        </div>
+
+                        <span class="system-status">
+                            ● Active
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- SYSTEM -->
+
+                <div class="settings-card">
+
+                    <div class="settings-card-header">
+
+                        <div class="settings-card-icon">
+                            ℹ
+                        </div>
+
+                        <div>
+                            <h3>System Information</h3>
+                            <p>KRIKAL inventory system</p>
+                        </div>
+
+                    </div>
+
+
+                    <div class="info-row">
+                        <span>Application</span>
+                        <strong>KRIKAL Inventory</strong>
+                    </div>
+
+                    <div class="info-row">
+                        <span>Version</span>
+                        <strong>1.0.0</strong>
+                    </div>
+
+                    <div class="info-row">
+                        <span>Connection</span>
+                        <strong
+                            id="systemConnection"
+                            class="connected"
+                        >
+                            ● Connecting
+                        </strong>
+                    </div>
+
+                    <div class="info-row">
+                        <span>Last Sync</span>
+                        <strong id="settingsLastSync">
+                            Waiting...
+                        </strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="settings-footer">
+
+                <button
+                    id="saveSettings"
+                    class="settings-save"
+                    type="button"
+                >
+                    ✓ Save Settings
+                </button>
+
+
+                <button
+                    id="resetSettings"
+                    class="settings-reset"
+                    type="button"
+                >
+                    ↻ Reset Settings
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <footer>
+            © 2026 KRIKAL Enterprises
+            • Inventory Management System
+        </footer>
+
+    </main>
+
+</div>
+
+
+<div
+    id="sidebarOverlay"
+    class="sidebar-overlay"
+></div>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>
