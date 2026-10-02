@@ -1,6 +1,0 @@
-V10 mobile inventory update:
-- Desktop keeps table layout.
-- Mobile switches inventory rows to compact cards.
-- Product, Model, Category, Stock and Status are visible without horizontal scrolling.
-- Search/filter controls stack vertically for small screens.
-- Mobile stock area is designed to avoid page/table clipping.
