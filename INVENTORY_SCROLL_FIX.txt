@@ -1,5 +1,0 @@
-V9 Inventory Scroll Fix:
-- Stock Inventory table has its own vertical scrollbar.
-- Table header stays sticky while scrolling.
-- Horizontal scrolling is supported for smaller screens.
-- Main page/sidebar scrolling is not required to see all inventory rows.
