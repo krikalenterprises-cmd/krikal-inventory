@@ -1,0 +1,5 @@
+V8:
+- Model is a separate Inventory table column.
+- A dedicated Search Model field is shown separately from product/category search.
+- Model search filters by the Model field.
+- Google Sheet inventory should include: Item Name | Model | Category | Quantity | Status.
