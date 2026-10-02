@@ -1,0 +1,67 @@
+KRIKAL BUSINESS DASHBOARD - DATA UPDATE GUIDE
+
+1. INVENTORY / STOCK
+- Inventory is loaded from the existing Google Apps Script API.
+- To change stock, open Stock Admin from the sidebar or admin.html.
+- Add/Edit/Delete inventory there.
+- The Google Sheet remains the master source for inventory.
+
+2. SALES / PURCHASE / RECHARGE / EXPENSES
+- In this version, these entries are saved in the browser using localStorage.
+- Use the + Add button on each module.
+- Dashboard totals, today/month totals, recent activity and customer/supplier summaries update automatically.
+- This means data entered on one browser/device is not automatically visible on another device.
+
+3. RECOMMENDED FINAL CLOUD SETUP
+Create separate tabs in the same Google Spreadsheet:
+Sales: Date, Invoice, Customer, Category/Payment, Amount
+Purchase: Date, Bill No, Supplier, Category, Amount
+Recharge: Date, Mobile/Ref, Operator/Customer, Recharge Type, Amount
+Expenses: Date, Reference, Paid To, Expense Category, Amount
+Customers: Customer ID, Name, Mobile, Address
+Suppliers: Supplier ID, Name, Mobile, Address
+
+Then extend the Google Apps Script API with actions:
+GET -> return inventory + transaction data
+POST action=addSale
+POST action=addPurchase
+POST action=addRecharge
+POST action=addExpense
+POST action=editSale / editPurchase / editRecharge / editExpense
+POST action=delete...
+
+This is the proper way to make the dashboard multi-device and keep one central data source.
+
+4. IMPORTANT
+Do not put real business credentials in frontend JavaScript. The current login is only a basic browser gate. For a real production system, authentication should be handled server-side.
+
+5. DATA FLOW
+Google Sheet -> Apps Script API -> Dashboard
+Dashboard form -> Apps Script API -> Google Sheet
+Inventory already follows this pattern; transactions are currently browser-local until the API is extended.
+
+PAYMENTS MODULE
+---------------
+Payments is now a separate module.
+Received: customer money received.
+Paid: supplier/expense/business money paid.
+Fields: Date, Type, Party, Reference, Amount, Payment Mode, Status, Notes.
+The browser version stores entries locally. For multi-device/shared data, connect the same fields to Google Sheets via Apps Script.
+
+Recommended Google Sheet columns:
+Payment ID | Date | Type | Party | Reference | Amount | Mode | Status | Notes
+
+V4 FIXES
+- Payments is visible in the sidebar.
+- Sidebar navigation is independently scrollable.
+- Logout area remains visible at the bottom.
+
+V6 BILLING + SQL ARCHITECTURE
+-----------------------------
+Website billing form creates a structured sale transaction.
+For production, the frontend sends the transaction to a secured backend API.
+The backend writes Sales, SaleItems, StockMovement and CustomerLedger in one SQL transaction.
+Do NOT put SQL credentials in GitHub/frontend JavaScript.
+
+Google Sheet remains the physical-stock register/reconciliation source.
+SQL remains the digital sales/purchase/recharge/expense movement ledger.

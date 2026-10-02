@@ -1,0 +1,1 @@
+Inventory now includes a Model dropdown/filter. Google Sheet rows should contain Item Name, Model, Category, Quantity, Status. The Model selector is populated from inventory records.
